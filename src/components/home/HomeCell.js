@@ -7,7 +7,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import URLConf from '../../config/URLConf';
-import Article from '../article/Index';
+import Article from '../../pages/Article';
 
 const padding = 20;
 

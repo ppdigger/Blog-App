@@ -9,7 +9,7 @@ import {
   Alert
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Write from '../pages/Write';
+import Search from '../pages/Search';
 
 const deviceW = Dimensions.get('window').width;
 const padding = 20;
@@ -24,8 +24,7 @@ export default class NavHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hidden: true,
-      isOpen: false
+      hidden: true
     };
   }
   componentDidMount() {
@@ -39,12 +38,12 @@ export default class NavHeader extends Component {
       navigator.pop();
     }
   }
-  _write() {
+  _search() {
     const { navigator } = this.props;
     if(navigator) {
       navigator.push({
-        title: 'Write',
-        component: Write
+        title: 'Search',
+        component: Search
       })
     }
   }
@@ -60,8 +59,8 @@ export default class NavHeader extends Component {
             <Icon style={styles.more} name="reply" size={px2dp(22)} color="#666"/>
           </TouchableOpacity>
           <Text style={styles.title}>{this.state.title}</Text>
-          <TouchableOpacity onPress={this._write.bind(this)}>
-            <Icon style={styles.more} name="edit" size={px2dp(22)} color="#666"/>
+          <TouchableOpacity onPress={this._search.bind(this)}>
+            <Icon style={styles.more} name="search" size={px2dp(22)} color="#666"/>
           </TouchableOpacity>
         </View>
       </View>
