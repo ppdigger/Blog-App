@@ -21,7 +21,7 @@ export default class ShareBtn extends Component {
   render() {
     return (
       <TouchableOpacity onPress={this.props.onPress} style={styles.container}>
-        <Icon style={styles.more} name="search" size={px2dp(22)} color="#666"/>
+        <Icon style={styles.more} name="search" size={px2dp(22)} color="#fff"/>
       </TouchableOpacity>
     )
   }
@@ -36,6 +36,6 @@ var styles = StyleSheet.create({
     flex: 2,
     fontSize: 16,
     lineHeight: 46,
-    textAlign: 'left',
+    textAlign: 'left'
   },
 });

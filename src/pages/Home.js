@@ -3,7 +3,8 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  StatusBar
 } from 'react-native';
 import NavigationBar from 'react-native-navbar';
 import HomeList from '../components/home/HomeList';
@@ -27,8 +28,9 @@ export default class Home extends Component {
     return (
       <View style={styles.container}>
         <NavigationBar
-        style={{borderBottomWidth: 0.5, borderBottomColor: '#F3F3F3', paddingLeft: 20, paddingRight: 20}}
-        title={{title: '首页'}}
+        statusBar={{style: 'light-content', tintColor: '#2abf88'}}
+        style={{borderBottomWidth: 0.5, backgroundColor: '#2abf88', paddingLeft: 20, paddingRight: 20}}
+        title={{title: '首页', tintColor: '#fff'}}
         rightButton={<SearchBtn onPress={()=>{this._search()}}/>}/>
         <HomeList
           navigator={this.props.navigator}

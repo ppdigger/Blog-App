@@ -27,7 +27,7 @@ export default class HomeList extends Component {
   }
   /* 生命周期调用获取数据 */
   componentDidMount = () => {
-    // this.getDataSource();
+
   }
   /* 获取数据 */
   getDataSource = (flag) => {
@@ -73,9 +73,9 @@ export default class HomeList extends Component {
              navigator={this.props.navigator}
            />
   }
-  _renderSectionHeader = ({section}) => {
-    return <Text>{section.name}</Text>
-  }
+  // _renderSectionHeader = ({section}) => {
+  //   return <Text>{section.name}</Text>
+  // }
   //去除key警告
   extraUniqueKey(item, index){
     return index+item;
@@ -104,7 +104,7 @@ export default class HomeList extends Component {
       <View style = {styles.container}>
         <SectionList
           renderItem={this._renderItem}
-          renderSectionHeader={this._renderSectionHeader}
+          // renderSectionHeader={this._renderSectionHeader}
           sections={this.state.dataSource}
           keyExtractor={this.extraUniqueKey}
           onRefresh={this._onRefresh}

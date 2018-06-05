@@ -49,8 +49,9 @@ export default class Article extends Component {
     return (
       <View style={styles.container}>
         <NavigationBar
-        style={{borderBottomWidth: 0.5, borderBottomColor: '#F3F3F3', paddingLeft: 20, paddingRight: 20}}
-        title={{title: '正文'}}
+        statusBar={{style: 'light-content', tintColor: '#2abf88'}}
+        style={{borderBottomWidth: 0.5, backgroundColor: '#2abf88', paddingLeft: 20, paddingRight: 20}}
+        title={{title: '正文', tintColor: '#fff'}}
         leftButton={<BackBtn onPress={()=>this.props.navigator.pop()}/>}/>
         <ScrollView style={styles.scrollView}>
           <View>
@@ -83,10 +84,13 @@ const styles = StyleSheet.create({
     width: deviceW,
     paddingLeft: padding,
     paddingRight: padding,
+    paddingTop: 16,
+    paddingBottom: 20,
   },
   title: {
     marginTop: 2,
     fontSize: 16,
+    lineHeight: 24,
     color: '#00B5AD',
     lineHeight: 20,
   },

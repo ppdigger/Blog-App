@@ -31,8 +31,8 @@ export default class HomeCell extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={this._openPage.bind(this)}>
-          <Text style={styles.title}>{this.props.dataSource.title}</Text>
-          <Text style={styles.summary}>{this.props.dataSource.summary}</Text>
+          <Text style={styles.title} numberOfLines={2}>{this.props.dataSource.title}</Text>
+          <Text style={styles.summary} numberOfLines={2}>{this.props.dataSource.summary}</Text>
           <View style={styles.header}>
             <Image
               source={{uri:this.props.dataSource.avatar}}
@@ -49,8 +49,10 @@ export default class HomeCell extends Component {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    marginBottom: 10,
+    marginBottom: 8,
     padding: padding,
+    paddingBottom: 12,
+    paddingTop: 12,
     backgroundColor: 'white',
   },
   header: {
@@ -66,12 +68,18 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 12,
     lineHeight: 20,
+    paddingLeft: 8,
     color: '#00B5AD',
   },
   title: {
     fontSize: 16,
+    lineHeight: 24,
+    paddingBottom: 6,
   },
   summary: {
     fontSize: 14,
+    lineHeight: 22,
+    paddingBottom: 10,
+    color: '#888'
   },
 });
