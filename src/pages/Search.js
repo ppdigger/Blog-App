@@ -65,6 +65,9 @@ export default class Search extends Component {
         })
       }
       let data = response.data.blog
+      if (data.length == 0) {
+        this.refs.toast.show('搜索不到你想要的')
+      }
       data = [...this.state.dataSource, ...data]
       this.setState({
         isLoadingMore: false,
