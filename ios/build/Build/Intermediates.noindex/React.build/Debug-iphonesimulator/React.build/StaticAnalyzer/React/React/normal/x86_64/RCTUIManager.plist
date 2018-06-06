@@ -6,7 +6,7 @@
 <string>Apple LLVM version 9.0.0 (clang-900.0.39.2)</string>
  <key>files</key>
  <array>
-  <string>/Users/ppdigger/Documents/react native/newApp/node_modules/react-native/React/Modules/RCTUIManager.m</string>
+  <string>/Users/ppdigger/Documents/react native/Blog-App/node_modules/react-native/React/Modules/RCTUIManager.m</string>
  </array>
  <key>diagnostics</key>
  <array>
