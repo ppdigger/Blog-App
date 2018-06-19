@@ -41,3 +41,4 @@ package-lock.json
 buck-out/
 \.buckd/
 *.keystore
+android/app

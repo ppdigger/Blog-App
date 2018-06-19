@@ -23,4 +23,8 @@ target 'newApp' do
 
   pod 'RNImageCropPicker', :path => '../node_modules/react-native-image-crop-picker'
 
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
+  pod 'react-native-spinkit', :path => '../node_modules/react-native-spinkit'
+
 end
