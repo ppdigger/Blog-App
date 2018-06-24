@@ -5,7 +5,10 @@ import {
   Text,
   View,
   Dimensions,
-  Modal
+  Modal,
+  TextInput,
+  Platform,
+  PixelRatio
 } from 'react-native';
 import axios from 'axios';
 import URLConf from '../config/URLConf';
@@ -19,14 +22,17 @@ import Loading from '../components/Loading';
 import Toast, {DURATION} from 'react-native-easy-toast';
 import Spinner from 'react-native-spinkit';
 
+const PlatformIOS = Platform.OS === 'ios';
 const deviceW = Dimensions.get('window').width;
 const deviceH = Dimensions.get('window').height;
+const padding = 20;
 
 export default class Write extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loadingHide: false
+      loadingHide: false,
+      summary: '',
     }
   }
   _onPressAddImage = () => {
@@ -58,6 +64,7 @@ export default class Write extends Component {
         }
       });
     });
+    /* 获取七牛token */
     getQiniuToken = async () => {
       let res = await axios.get(URLConf.API_BASE + 'qiniuToken')
         .then((response) => {
@@ -73,8 +80,35 @@ export default class Write extends Component {
   _releaseArticle = async () => {
     let title = await this.richtext.getTitleHtml(),
         content = await this.richtext.getContentHtml();
-    console.log('title', title);
-    console.log('content', content);
+    if(title.trim() == '' || content.trim() == '') {
+      this.refs.toast.show('标题和内容不能为空！');
+    } else {
+      this.releaseArticle(title, content, this.state.summary);
+    }
+  }
+  /* 发表axios */
+  releaseArticle = (title, content, summary) => {
+    this.showModal();
+    axios.post(URLConf.API_BASE + 'releaseBlog', {
+      title: title,
+      content: content,
+      summary: summary
+    })
+    .then((response) => {
+      this.hideModal();
+      if(response.status == 201) {
+        setTimeout(() => {
+          this.refs.toast.show(response.data.message);
+        }, 600);
+        setTimeout(() => {
+          this.props.navigator.pop();
+        }, 800);
+      }
+    })
+    .catch((error) => {
+      console.log('error', error);
+      this.hideModal();
+    });
   }
   /* 显示 加载Modal */
   showModal() {
@@ -105,6 +139,16 @@ export default class Write extends Component {
             contentPlaceholder={'请输入正文'}
             editorInitializedCallback={() => this.onEditorInitialized()}
           />
+          <View style={styles.summary}>
+            <TextInput style={styles.inputText}
+              underlineColorAndroid='transparent'
+              placeholder='摘要（选填）'
+              placeholderTextColor='rgba(74, 74, 74, 0.2)'
+              maxLength = {120}
+              onChangeText={(text) => this.setState({summary: text})}
+              value={this.state.summary}
+              selectionColor='rgba(0, 0, 0, 0.8)'/>
+          </View>
           <RichTextToolbar
             onPressAddImage={() => this._onPressAddImage()}
           	getEditor={() => this.richtext}
@@ -128,9 +172,21 @@ export default class Write extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#ffffff',
   },
   richTextEditor: {
     flex: 1,
     paddingTop: 20,
+  },
+  summary: {
+    paddingLeft: padding,
+    paddingRight: padding,
+  },
+  inputText: {
+    fontSize: 16,
+    height: 46,
+    borderTopWidth: PlatformIOS ? 1 / PixelRatio.get() : 0,
+    borderColor: '#d5d5d5',
+    borderStyle: 'solid',
   },
 });

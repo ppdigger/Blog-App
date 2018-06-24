@@ -80,7 +80,6 @@ export default class Search extends Component {
     });
   }
   _renderItem = ({item}) => {
-    console.log(item)
     return <HomeCell
              dataSource={item}
              navigator={this.props.navigator}
@@ -146,7 +145,6 @@ const styles = StyleSheet.create({
   inputText: {
     flex: 10,
     fontSize: 16,
-    lineHeight: 46,
     height: 46,
     paddingLeft: 20,
     color: '#fff'

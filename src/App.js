@@ -6,7 +6,7 @@ import TabNavigator from 'react-native-tab-navigator';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Dimensions } from 'react-native';
 import Home from './pages/Home';
-// import Write from './pages/Write';
+import Write from './pages/Write';
 import Profile from './pages/Profile';
 
 const deviceW = Dimensions.get('window').width
