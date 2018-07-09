@@ -39,7 +39,9 @@ export default class Article extends Component {
       }
     })
     .then((response) => {
-      this.setState({dataSource: response.data.blog[0]});
+      if(response.data.success) {
+        this.setState({dataSource: response.data.result[0]});
+      }
     })
     .catch((error) => {
       console.log('error', error);

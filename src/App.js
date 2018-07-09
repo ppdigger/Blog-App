@@ -7,6 +7,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Dimensions } from 'react-native';
 import Home from './pages/Home';
 import Write from './pages/Write';
+import Login from './pages/Login';
+// import Register from './pages/Register';
 import Profile from './pages/Profile';
 
 const deviceW = Dimensions.get('window').width
@@ -19,7 +21,8 @@ function px2dp(px) {
 
 export default class App extends Component {
   state= {
-    selectedTab: 'home'
+    // selectedTab: 'home'
+    selectedTab: 'profile'
   };
   render() {
     return (

@@ -86,7 +86,7 @@ export default class Write extends Component {
       this.releaseArticle(title, content, this.state.summary);
     }
   }
-  /* 发表axios */
+  /* 发布 axios */
   releaseArticle = (title, content, summary) => {
     this.showModal();
     axios.post(URLConf.API_BASE + 'releaseBlog', {
@@ -96,14 +96,14 @@ export default class Write extends Component {
     })
     .then((response) => {
       this.hideModal();
-      if(response.status == 201) {
-        setTimeout(() => {
-          this.refs.toast.show(response.data.message);
-        }, 600);
+      if(response.data.success) {
         setTimeout(() => {
           this.props.navigator.pop();
         }, 800);
       }
+      setTimeout(() => {
+        this.refs.toast.show(response.data.toast);
+      }, 600);
     })
     .catch((error) => {
       console.log('error', error);

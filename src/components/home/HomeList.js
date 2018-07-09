@@ -38,22 +38,24 @@ export default class HomeList extends Component {
       }
     })
     .then((response) => {
-      if(response.data.blogs.length < this.state.rowNum) {
+      if(response.data.success) {
+        if(response.data.result.length < this.state.rowNum) {
+          this.setState({
+            noMore: true
+          })
+        }
+        let data = this.packData(response.data.result);
+        if(flag) {
+          this.refs.toast.show('更新成功')
+        } else {
+          data = [...this.state.dataSource, ...data]
+        }
         this.setState({
-          noMore: true
+          isLoadingMore: false,
+          dataSource: data,
+          page: this.state.page+1
         })
       }
-      let data = this.packData(response.data.blogs);
-      if(flag) {
-        this.refs.toast.show('更新成功')
-      } else {
-        data = [...this.state.dataSource, ...data]
-      }
-      this.setState({
-        isLoadingMore: false,
-        dataSource: data,
-        page: this.state.page+1
-      })
     })
     .catch((error) => {
       console.log('error', error);

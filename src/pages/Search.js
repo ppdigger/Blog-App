@@ -59,21 +59,23 @@ export default class Search extends Component {
       }
     })
     .then((response) => {
-      if(response.data.blog.length < this.state.rowNum) {
+      if(response.data.success) {
+        if(response.data.result.length < this.state.rowNum) {
+          this.setState({
+            noMore: true
+          })
+        }
+        let data = response.data.result
+        if (data.length == 0) {
+          this.refs.toast.show('搜索不到你想要的')
+        }
+        data = [...this.state.dataSource, ...data]
         this.setState({
-          noMore: true
+          isLoadingMore: false,
+          dataSource: data,
+          page: this.state.page+1
         })
       }
-      let data = response.data.blog
-      if (data.length == 0) {
-        this.refs.toast.show('搜索不到你想要的')
-      }
-      data = [...this.state.dataSource, ...data]
-      this.setState({
-        isLoadingMore: false,
-        dataSource: data,
-        page: this.state.page+1
-      })
     })
     .catch((error) => {
       console.log('error', error);
@@ -103,6 +105,7 @@ export default class Search extends Component {
             placeholderTextColor='rgba(255, 255, 255, 0.7)'
             clearButtonMode='while-editing'
             maxLength = {40}
+            autoFocus={true}
             selectionColor='rgba(255, 255, 255, 0.8)'
             onSubmitEditing={this._onSubmitEditing.bind(this)}/>
         </View>
