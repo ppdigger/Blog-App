@@ -17,7 +17,7 @@ import Login from './Login';
 import {
   getUserInfo,
   loginState,
-  getToken
+  outLogin
 } from '../tools/secret';
 
 const PlatformIOS = Platform.OS === 'ios';
@@ -61,16 +61,13 @@ export default class Profile extends Component {
     });
   }
   hideLoginRegPage = () => {
-    console.log('hideLoginRegPage');
     this.setState({
       loginRegPageVisible: false,
     });
   }
   // 退出登录
   _outLogin = () => {
-    AsyncStorage.multiRemove([
-      'token', 'userId', 'userName', 'avatar'
-    ], () => {
+    outLogin(() => {
       this.setState({
         dataSource: {
           avatar: 'http://127.0.0.1:7001/public/avatar/none.jpg',
@@ -153,7 +150,7 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 20,
-    backgroundColor: '#2abf88',
+    backgroundColor: '#ff0000',
     borderWidth: PlatformIOS ? 1 / PixelRatio.get() : 0,
     borderColor: '#cecece',
   },

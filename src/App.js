@@ -21,8 +21,8 @@ function px2dp(px) {
 
 export default class App extends Component {
   state= {
-    // selectedTab: 'home'
-    selectedTab: 'profile'
+    selectedTab: 'home'
+    // selectedTab: 'profile'
   };
   render() {
     return (

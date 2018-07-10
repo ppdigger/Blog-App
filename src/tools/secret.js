@@ -28,9 +28,15 @@ let loginState = (callback) => {
     }
   });
 }
+let outLogin = (callback) => {
+  AsyncStorage.multiRemove([
+    'token', 'userId', 'userName', 'avatar'
+  ], callback);
+}
 
 export {
   getToken,
   loginState,
-  getUserInfo
+  getUserInfo,
+  outLogin
 }

@@ -21,6 +21,11 @@ import ReleaseBtn from '../components/navbar/ReleaseBtn';
 import Loading from '../components/Loading';
 import Toast, {DURATION} from 'react-native-easy-toast';
 import Spinner from 'react-native-spinkit';
+import {
+  getToken,
+  outLogin
+} from '../tools/secret';
+import Login from './Login';
 
 const PlatformIOS = Platform.OS === 'ios';
 const deviceW = Dimensions.get('window').width;
@@ -33,7 +38,16 @@ export default class Write extends Component {
     this.state = {
       loadingHide: false,
       summary: '',
+      token: '',
+      loginRegPageVisible: false,
     }
+  }
+  componentDidMount() {
+    getToken((token) => {
+      this.setState({
+        token: token
+      });
+    });
   }
   _onPressAddImage = () => {
     let _this = this;
@@ -93,6 +107,10 @@ export default class Write extends Component {
       title: title,
       content: content,
       summary: summary
+    }, {
+      headers: {
+        'Authorization': 'Bearer ' + this.state.token,
+      }
     })
     .then((response) => {
       this.hideModal();
@@ -106,8 +124,26 @@ export default class Write extends Component {
       }, 600);
     })
     .catch((error) => {
+      if (error.response.status == 401) {
+        this.refs.toast.show('请重新登录');
+        outLogin();
+        setTimeout(() => {
+          this._openLogin();
+        }, 600);
+      }
       console.log('error', error);
       this.hideModal();
+    });
+  }
+  _openLogin = () => {
+    console.log(this);
+    this.setState({
+      loginRegPageVisible: true,
+    });
+  }
+  hideLoginRegPage = () => {
+    this.setState({
+      loginRegPageVisible: false,
     });
   }
   /* 显示 加载Modal */
@@ -122,9 +158,15 @@ export default class Write extends Component {
       loadingHide: false
     });
   }
+  refresh = (isLogin, token) => {
+    this.setState({
+      token: token
+    });
+  }
   render() {
     return (
       <View style={styles.container}>
+        {this.state.loginRegPageVisible && <Login hideLoginRegPage={this.hideLoginRegPage} refresh={this.refresh}/>}
         <NavigationBar
           statusBar={{style: 'light-content', tintColor: '#2abf88'}}
           style={{borderBottomWidth: 0.5, backgroundColor: '#2abf88', paddingLeft: 20, paddingRight: 20}}
